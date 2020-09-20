@@ -10,5 +10,10 @@ if sys.version_info.major < 3:
 setup(
     cffi_modules=[
         'cairocffi/ffi_build.py:ffi',
-        'cairocffi/ffi_build.py:ffi_pixbuf']
+        'cairocffi/ffi_build.py:ffi_pixbuf'],
+    package_data={
+            "cairocffi": [
+                "libcairo-2.dll",
+            ],
+        }
 )
