@@ -23,11 +23,16 @@ jobs:
       run: |
         curl -L https://github.com/preshing/cairo-windows/releases/download/with-tee/cairo-windows-1.17.2.zip -o cairo-windows.zip
         7z x cairo-windows.zip
-        Move-Item cairo-windows-* cairo
-        cp cairo/x64/cairo.dll cairocffi/cairo.dll
+        Move-Item 'cairo-windows-*' "cairocomplied"
+        Copy-Item "$PWD\cairocomplied\lib\x64\cairo.dll" "cairocffi\cairo.dll"
     - name: Test
       run: |
+        $env:INCLUDE="$PWD\cairocomplied\include\"
+        $env:LIB="$PWD\cairocomplied\lib\x64\"
         python setup.py install
         python setup.py bdist_wheel
         python setup.py test
-        
+    - uses: actions/upload-artifact@v2
+      with:
+         name: wheels-${{ matrix.python-version }}
+         path: dist/pycairo*.whl   
