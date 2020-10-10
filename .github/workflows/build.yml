@@ -22,7 +22,7 @@ jobs:
           curl -L https://github.com/preshing/cairo-windows/releases/download/with-tee/cairo-windows-1.17.2.zip -o cairocomplied.zip
           7z x cairocomplied.zip
           Move-Item 'cairo-windows-*' "cairocomplied"
-
+          tree /A /F
       - name: Build
         env:
             arch: ${{ matrix.architecture }}
