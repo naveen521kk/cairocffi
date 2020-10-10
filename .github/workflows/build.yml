@@ -27,7 +27,7 @@ jobs:
         env:
             arch: ${{ matrix.architecture }}
         run: |
-          Copy-Item "$PWD\cairocomplied\lib\$($arch)\cairo.dll" "cairo\cairo.dll"
+          Copy-Item "$PWD\cairocomplied\lib\$($env:arch)\cairo.dll" "cairo\cairo.dll"
           python -m pip install wheel
           python -m pip install --upgrade pip
           python -m pip install --upgrade setuptools wheel
