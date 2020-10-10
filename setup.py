@@ -3,19 +3,25 @@ from io import open
 from os import path
 import os
 from setuptools import setup
-
-if sys.version_info.major < 3:
-    raise RuntimeError(
-        'cairocffi does not support Python 2.x anymore. '
-        'Please use Python 3 or install an older version of cairocffi.')
 from wheel.bdist_wheel import bdist_wheel
 from setuptools import Extension
 from setuptools.command.build_ext import build_ext
+
+if sys.version_info.major < 3:
+    raise RuntimeError(
+        "cairocffi does not support Python 2.x anymore. "
+        "Please use Python 3 or install an older version of cairocffi."
+    )
+
+
 class BdistWheel(bdist_wheel):
     def get_tag(self):
-        return ('py3', 'none') + bdist_wheel.get_tag(self)[2:]
+        return ("py3", "none") + bdist_wheel.get_tag(self)[2:]
+
+
 class SharedLibrary(Extension):
     """Object that describes the library (filename) and how to make it."""
+
     if sys.platform == "darwin":
         suffix = ".dylib"
     elif sys.platform == "win32":
@@ -30,6 +36,7 @@ class SharedLibrary(Extension):
         self.output_dir = path.normpath(output_dir)
         self.env = env or dict(os.environ)
 
+
 class SharedLibBuildExt(build_ext):
     """Object representing command to produce and install a shared
     library."""
@@ -39,37 +46,27 @@ class SharedLibBuildExt(build_ext):
     def get_ext_filename(self, ext_name):
         for ext in self.extensions:
             if isinstance(ext, SharedLibrary):
-                return os.path.join(*ext_name.split('.')) + ext.suffix
+                return os.path.join(*ext_name.split(".")) + ext.suffix
         return build_ext.get_ext_filename(self, ext_name)
 
     def build_extension(self, ext):
-        #there should a command to build cairo here. Currently 
+        # there should a command to build cairo here. Currently
+        # there is no meson for now. Inn next release meson can
+        # be used.
         return
 
 
-ext_modules = [
-        SharedLibrary(
-            "cairocffi.cairo",  # package.shared_lib_name
-            cmd='"{}" ./setup-build.py'.format(sys.executable),
-            output_dir="build/local/lib")
-    ]
-cmdclass = {
-        'bdist_wheel': BdistWheel,
-        'build_ext': SharedLibBuildExt
-    }
+ext_modules = [SharedLibrary("cairocffi.cairo", cmd="", output_dir="build")]
+cmdclass = {"bdist_wheel": BdistWheel, "build_ext": SharedLibBuildExt}
 
 setup(
     cmdclass=cmdclass,
-    zip_safe=True,
     ext_modules=ext_modules,
-    #use_scm_version=True,
-    cffi_modules=[
-        'cairocffi/ffi_build.py:ffi',
-        'cairocffi/ffi_build.py:ffi_pixbuf'],
+    cffi_modules=["cairocffi/ffi_build.py:ffi", "cairocffi/ffi_build.py:ffi_pixbuf"],
     package_data={
-            "cairocffi": [
-                "cairo.dll",
-            ],
-        },
-    setup_requires=['setuptools_scm[toml]','wheel']
+        "cairocffi": [
+            "cairo.dll",
+        ],
+    },
+    setup_requires=["wheel"],
 )
