@@ -16,14 +16,14 @@ jobs:
           python-version: 3.8
           architecture: ${{ matrix.architecture }}
 
-      - name: Install Wheel and Cairo
+      - name: Get Cairo
         run: |
           #TODO: Change below URL on new cairo release
           curl -L https://github.com/preshing/cairo-windows/releases/download/with-tee/cairo-windows-1.17.2.zip -o cairocomplied.zip
           7z x cairocomplied.zip
           Move-Item 'cairo-windows-*' "cairocomplied"
 
-      - name: Launch tests
+      - name: Build
         env:
             arch: ${{ matrix.architecture }}
         run: |
