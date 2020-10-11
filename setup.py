@@ -65,14 +65,14 @@ setup(
     cmdclass=cmdclass,
     ext_modules=ext_modules,
     cffi_modules=[
-        "cairocffi/ffi_build.py:ffi",
-        "cairocffi/ffi_build.py:ffi_pixbuf"
-        ],
+         "cairocffi/ffi_build.py:ffi",
+         "cairocffi/ffi_build.py:ffi_pixbuf"
+         ],
     package_data={
         "cairocffi": [
             "cairo.dll",
         ],
     },
-    setup_requires=["wheel","cffi>=1.0.0"],
+    setup_requires=["wheel", "cffi>=1.0.0"],
     install_requires=["cffi>=1.0.0"],
 )
