@@ -9,7 +9,7 @@ if sys.version_info.major < 3:
         "cairocffi does not support Python 2.x anymore. "
         "Please use Python 3 or install an older version of cairocffi."
     )
-if os.environ.get("CI") and os.environ.get("BUILD_WHEEL_WINDOWS"):
+if os.environ.get("BUILD_WHEEL_WINDOWS"):
     from setuptools import Extension
     from setuptools.command.build_ext import build_ext
     from wheel.bdist_wheel import bdist_wheel
@@ -73,5 +73,6 @@ setup(
             "cairo.dll",
         ],
     },
-    setup_requires=["wheel"],
+    setup_requires=["wheel","cffi>=1.0.0"],
+    install_requires=["cffi>=1.0.0"],
 )

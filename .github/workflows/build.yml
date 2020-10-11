@@ -26,6 +26,7 @@ jobs:
       - name: Build
         env:
             arch: ${{ matrix.architecture }}
+            BUILD_WHEEL_WINDOWS: 1
         run: |
           Copy-Item "$PWD\cairocomplied\lib\$($env:arch)\cairo.dll" "cairocffi\cairo.dll"
           python -m pip install wheel
