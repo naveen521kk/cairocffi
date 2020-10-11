@@ -68,12 +68,4 @@ setup(
          "cairocffi/ffi_build.py:ffi",
          "cairocffi/ffi_build.py:ffi_pixbuf"
          ],
-    package_data={
-        "cairocffi": [
-            "cairo.dll",
-            "VERSION"
-        ],
-    },
-    setup_requires=["wheel", "cffi>=1.0.0"],
-    install_requires=["cffi>=1.0.0"],
 )

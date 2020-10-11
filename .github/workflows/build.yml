@@ -29,7 +29,6 @@ jobs:
             BUILD_WHEEL_WINDOWS: 1
         run: |
           Copy-Item "$PWD\cairocomplied\lib\$($env:arch)\cairo.dll" "cairocffi\cairo.dll"
-          python -m pip install wheel
           python -m pip install --upgrade pip
           python -m pip install --upgrade setuptools wheel
           python setup.py bdist_wheel
