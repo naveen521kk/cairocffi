@@ -36,5 +36,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-         name: wheels-${{ matrix.python-version }}
+         name: cairocffi-${{ matrix.architecture }}
          path: dist/cairocffi*.whl
