@@ -71,6 +71,7 @@ setup(
     package_data={
         "cairocffi": [
             "cairo.dll",
+            "VERSION"
         ],
     },
     setup_requires=["wheel", "cffi>=1.0.0"],
