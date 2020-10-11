@@ -53,7 +53,6 @@ except Exception:
         ('libcairo.so', 'libcairo.2.dylib', 'libcairo-2.dll'))
 
 
-
 class _keepref(object):
     """Function wrapper that keeps a reference to another object."""
     def __init__(self, ref, func):

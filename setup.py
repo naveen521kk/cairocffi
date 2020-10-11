@@ -1,9 +1,8 @@
-import sys
-from io import open
-from os import path
 import os
-from setuptools import setup
+import sys
+from os import path
 
+from setuptools import setup
 
 if sys.version_info.major < 3:
     raise RuntimeError(
@@ -11,16 +10,17 @@ if sys.version_info.major < 3:
         "Please use Python 3 or install an older version of cairocffi."
     )
 if os.environ.get("CI") and os.environ.get("BUILD_WHEEL_WINDOWS"):
-    from wheel.bdist_wheel import bdist_wheel
     from setuptools import Extension
     from setuptools.command.build_ext import build_ext
+    from wheel.bdist_wheel import bdist_wheel
+
     class BdistWheel(bdist_wheel):
         def get_tag(self):
             return ("py3", "none") + bdist_wheel.get_tag(self)[2:]
 
-
     class SharedLibrary(Extension):
-        """Object that describes the library (filename) and how to make it."""
+        """Object that describes the library (filename) and how to
+        make it."""
 
         if sys.platform == "darwin":
             suffix = ".dylib"
@@ -35,7 +35,6 @@ if os.environ.get("CI") and os.environ.get("BUILD_WHEEL_WINDOWS"):
             self.cwd = path.normpath(cwd)
             self.output_dir = path.normpath(output_dir)
             self.env = env or dict(os.environ)
-
 
     class SharedLibBuildExt(build_ext):
         """Object representing command to produce and install a shared
@@ -55,8 +54,9 @@ if os.environ.get("CI") and os.environ.get("BUILD_WHEEL_WINDOWS"):
             # be used.
             return
 
-
-    ext_modules = [SharedLibrary("cairocffi.cairo", cmd="", output_dir="build")]
+    ext_modules = [
+        SharedLibrary("cairocffi.cairo", cmd="", output_dir="build")
+        ]
     cmdclass = {"bdist_wheel": BdistWheel, "build_ext": SharedLibBuildExt}
 else:
     ext_modules = {}
@@ -64,7 +64,10 @@ else:
 setup(
     cmdclass=cmdclass,
     ext_modules=ext_modules,
-    cffi_modules=["cairocffi/ffi_build.py:ffi", "cairocffi/ffi_build.py:ffi_pixbuf"],
+    cffi_modules=[
+        "cairocffi/ffi_build.py:ffi",
+        "cairocffi/ffi_build.py:ffi_pixbuf"
+        ],
     package_data={
         "cairocffi": [
             "cairo.dll",
