@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
            cd pixman
-           sh configure --prefix="$PWD\pixman-build"
+           sh configure
            make
            make install
            cd ..
@@ -49,5 +49,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
             name: pixman.zip
-            path: pixman-build
+            path: pixman
           
