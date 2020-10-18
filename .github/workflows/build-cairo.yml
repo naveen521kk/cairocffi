@@ -33,13 +33,13 @@ jobs:
         run: |
            cd pixman
            sh configure
-           make
-           make install
+           sudo make
+           sudo make install
            cd ..
            cd cairo
            sh configure --prefix="$PWD\cairo-build"
-           make
-           make install
+           sudo make
+           sudo make install
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
