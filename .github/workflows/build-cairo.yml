@@ -28,9 +28,9 @@ jobs:
           tar -xf "{pixman-version}.tar.xz"
           mv "{pixman-version}" "pixman"
           
-       - name: Build Pixman and Cairo
-         shell: bash
-         run: |
+      - name: Build Pixman and Cairo
+        shell: bash
+        run: |
            cd pixman
            sh configure --prefix="$PWD\pixman-build"
            make
@@ -40,14 +40,14 @@ jobs:
            sh configure --prefix="$PWD\cairo-build"
            make
            make install
-        - name: Upload Artifacts
-          uses: actions/upload-artifact@v2
-          with:
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
             name: cairo.zip
             path: cairo-build
-        - name: Upload Artifacts
-          uses: actions/upload-artifact@v2
-          with:
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
             name: pixman.zip
             path: pixman-build
           
