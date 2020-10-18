@@ -1,0 +1,53 @@
+name: cairocffi's tests
+on: [push]
+
+jobs:
+  tests:
+    name: ${{ matrix.os }} - ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    env:
+      cairo-version: "cairo-1.16.0"
+      pixman-version: "pixman-0.40.0"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: [3.8]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Download and Extract Cairo and Pixman
+        shell: bash
+        run: |
+          curl -L "https://www.cairographics.org/releases/{cairo-version}.tar.xz" -o "{cairo-version}.tar.xz"
+          tar -xf "{cairo-version}.tar.xz"
+          mv "{cairo-version}" cairo
+          curl -L "https://www.cairographics.org/releases/{pixman-version}.tar.gz" -o "{pixman-version}.tar.xz"
+          tar -xf "{pixman-version}.tar.xz"
+          mv "{pixman-version}" "pixman"
+          
+       - name: Build Pixman and Cairo
+         shell: bash
+         run: |
+           cd pixman
+           sh configure --prefix="$PWD\pixman-build"
+           make
+           make install
+           cd ..
+           cd cairo
+           sh configure --prefix="$PWD\cairo-build"
+           make
+           make install
+        - name: Upload Artifacts
+          uses: actions/upload-artifact@v2
+          with:
+            name: cairo.zip
+            path: cairo-build
+        - name: Upload Artifacts
+          uses: actions/upload-artifact@v2
+          with:
+            name: pixman.zip
+            path: pixman-build
+          
