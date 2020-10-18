@@ -6,8 +6,8 @@ jobs:
     name: ${{ matrix.os }} - ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     env:
-      cairo-version: "cairo-1.16.0"
-      pixman-version: "pixman-0.40.0"
+      cairo: "cairo-1.16.0"
+      pixman: "pixman-0.40.0"
     strategy:
       fail-fast: false
       matrix:
@@ -21,12 +21,12 @@ jobs:
       - name: Download and Extract Cairo and Pixman
         shell: bash
         run: |
-          curl -L "https://www.cairographics.org/releases/${cairo-version}.tar.xz" -o "${cairo-version}.tar.xz"
-          tar -xf "${cairo-version}.tar.xz"
-          mv "${cairo-version}" cairo
-          curl -L "https://www.cairographics.org/releases/${pixman-version}.tar.gz" -o "${pixman-version}.tar.xz"
-          tar -xf "${pixman-version}.tar.xz"
-          mv "${pixman-version}" "pixman"
+          curl -L "https://www.cairographics.org/releases/${cairo}.tar.xz" -o "${cairo}.tar.xz"
+          tar -xf "${cairo}.tar.xz"
+          mv "${cairo}" cairo
+          curl -L "https://www.cairographics.org/releases/${pixman}.tar.gz" -o "${pixman}.tar.xz"
+          tar -xf "${pixman}.tar.xz"
+          mv "${pixman}" "pixman"
           
       - name: Build Pixman and Cairo
         shell: bash
