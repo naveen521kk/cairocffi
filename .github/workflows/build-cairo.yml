@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   tests:
-    name: ${{ matrix.os }} - ${{ matrix.python-version }}
+    name: ${{ matrix.os }} cairo build
     runs-on: ${{ matrix.os }}
     env:
       cairo: "cairo-1.16.0"
@@ -45,9 +45,5 @@ jobs:
         with:
             name: cairo-${{ runner.os }}.zip
             path: cairo-build
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-            name: pixman.zip
-            path: pixman-${{ runner.os }}.zip
+
           
