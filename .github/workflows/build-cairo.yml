@@ -21,12 +21,12 @@ jobs:
       - name: Download and Extract Cairo and Pixman
         shell: bash
         run: |
-          curl -L "https://www.cairographics.org/releases/{cairo-version}.tar.xz" -o "{cairo-version}.tar.xz"
-          tar -xf "{cairo-version}.tar.xz"
-          mv "{cairo-version}" cairo
-          curl -L "https://www.cairographics.org/releases/{pixman-version}.tar.gz" -o "{pixman-version}.tar.xz"
-          tar -xf "{pixman-version}.tar.xz"
-          mv "{pixman-version}" "pixman"
+          curl -L "https://www.cairographics.org/releases/${cairo-version}.tar.xz" -o "${cairo-version}.tar.xz"
+          tar -xf "${cairo-version}.tar.xz"
+          mv "${cairo-version}" cairo
+          curl -L "https://www.cairographics.org/releases/${pixman-version}.tar.gz" -o "${pixman-version}.tar.xz"
+          tar -xf "${pixman-version}.tar.xz"
+          mv "${pixman-version}" "pixman"
           
       - name: Build Pixman and Cairo
         shell: bash
