@@ -1,4 +1,4 @@
-name: cairocffi's tests
+name: build-cairo-mac-linux
 on: [push]
 
 jobs:
