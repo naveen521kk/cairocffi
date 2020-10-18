@@ -43,11 +43,11 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-            name: cairo.zip
+            name: cairo-${{ runner.os }}.zip
             path: cairo-build
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
             name: pixman.zip
-            path: pixman
+            path: pixman-${{ runner.os }}.zip
           
