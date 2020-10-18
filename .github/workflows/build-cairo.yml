@@ -37,7 +37,7 @@ jobs:
            sudo make install
            cd ..
            cd cairo
-           sh configure --prefix="$PWD\cairo-build" --enable-fc=yes --enable-ft=yes --enable-tee=yes
+           sh configure --prefix="${GITHUB_WORKSPACE}\cairo-build" --enable-fc=yes --enable-ft=yes --enable-tee=yes
            sudo make
            sudo make install
       - name: Upload Artifacts
