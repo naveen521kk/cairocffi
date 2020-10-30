@@ -35,6 +35,9 @@ jobs:
           cd dist
           $wheelPath=(Resolve-Path cairocffi*.whl).Path
           pip install $wheelPath
+          cd ..
+      - name: Test Installed WHeel
+        run: |
           python -c "import cairocffi"
           python utils/tests.py 
 
