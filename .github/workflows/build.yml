@@ -36,11 +36,10 @@ jobs:
           $wheelPath=(Resolve-Path cairocffi*.whl).Path
           pip install $wheelPath
           cd ..
-      - name: Test Installed WHeel
+      - name: Test Installed Wheel
         run: |
-          pip install pycairo
           python -c "import cairocffi"
-          python utils/tests.py 
+          python setup.py test
 
       - uses: actions/upload-artifact@v2
         with:
