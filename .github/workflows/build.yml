@@ -38,6 +38,7 @@ jobs:
           cd ..
       - name: Test Installed WHeel
         run: |
+          pip install pycairo
           python -c "import cairocffi"
           python utils/tests.py 
 
